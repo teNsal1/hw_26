@@ -1,11 +1,16 @@
 from django.contrib import admin
 from .models import Master, Service, Order, Review
 
+class ReviewInline(admin.TabularInline):
+    model = Review
+    extra = 1
+
 @admin.register(Master)
 class MasterAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'experience', 'is_active')
     list_filter = ('is_active',)
     search_fields = ('name', 'phone')
+    inlines = [ReviewInline]
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
