@@ -98,3 +98,17 @@ JAZZMIN_SETTINGS = {
     "show_sidebar": True,
     "navigation_expanded": True,
 }
+
+# Mistral AI settings
+MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
+MISTRAL_MODERATIONS_GRADES = {
+    "hate_and_discrimination": 0.1,
+    "sexual": 0.1,
+    "violence_and_threats": 0.1,
+    "dangerous_and_criminal_content": 0.1,
+    "selfharm": 0.1,
+    "health": 0.1,
+    "financial": 0.1,
+    "law": 0.1,
+    "pii": 0.1,
+}
