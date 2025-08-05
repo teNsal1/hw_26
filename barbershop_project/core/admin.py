@@ -1,9 +1,27 @@
 from django.contrib import admin
+from django.utils import timezone
 from .models import Master, Service, Order, Review
 
 class ReviewInline(admin.TabularInline):
     model = Review
     extra = 1
+
+class DateFilter(admin.SimpleListFilter):
+    title = 'Дата создания'
+    parameter_name = 'date'
+
+    def lookups(self, request, model_admin):
+        return [
+            ('today', 'Сегодня'),
+            ('week', 'За неделю'),
+        ]
+
+    def queryset(self, request, queryset):
+        if self.value() == 'today':
+            return queryset.filter(created_at__date=timezone.now().date())
+        if self.value() == 'week':
+            return queryset.filter(created_at__date__gte=timezone.now().date() - timezone.timedelta(days=7))
+        return queryset
 
 @admin.register(Master)
 class MasterAdmin(admin.ModelAdmin):
@@ -28,7 +46,7 @@ class OrderAdmin(admin.ModelAdmin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('client_name', 'master', 'rating', 'created_at', 'is_published')
-    list_filter = ('rating', 'is_published', 'master')
+    list_filter = (DateFilter, 'rating', 'is_published', 'master')
     search_fields = ('client_name', 'text')
     date_hierarchy = 'created_at'
     actions = ['publish_reviews', 'unpublish_reviews']
