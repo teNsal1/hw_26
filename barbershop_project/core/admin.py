@@ -31,3 +31,12 @@ class ReviewAdmin(admin.ModelAdmin):
     list_filter = ('rating', 'is_published', 'master')
     search_fields = ('client_name', 'text')
     date_hierarchy = 'created_at'
+    actions = ['publish_reviews', 'unpublish_reviews']
+
+    def publish_reviews(self, request, queryset):
+        queryset.update(is_published=True)
+    publish_reviews.short_description = "Опубликовать выбранные отзывы"
+
+    def unpublish_reviews(self, request, queryset):
+        queryset.update(is_published=False)
+    unpublish_reviews.short_description = "Снять с публикации выбранные отзывы"
