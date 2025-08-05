@@ -10,6 +10,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django_extensions',
     'django.contrib.auth',
@@ -87,3 +88,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
+
+# Jazzmin settings
+JAZZMIN_SETTINGS = {
+    "site_title": "Админка барбершопа",
+    "site_header": "Барбершоп",
+    "site_brand": "Барбершоп",
+    "welcome_sign": "Добро пожаловать в админку барбершопа",
+    "show_sidebar": True,
+    "navigation_expanded": True,
+}
