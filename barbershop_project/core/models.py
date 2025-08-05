@@ -89,6 +89,13 @@ class Review(models.Model):
         (4, '4 - Хорошо'),
         (5, '5 - Отлично'),
     ]
+    
+    AI_CHOICES = [
+        ("ai_checked_true", "Проверено ИИ"),
+        ("ai_cancelled", "Отменено ИИ"),
+        ("ai_checked_in_progress", "В процессе проверки"),
+        ("ai_checked_false", "Не проверено"),
+    ]
 
     text = models.TextField(verbose_name="Текст отзыва")
     client_name = models.CharField(max_length=100, blank=True, verbose_name="Имя клиента")
@@ -110,6 +117,12 @@ class Review(models.Model):
         verbose_name="Оценка"
     )
     is_published = models.BooleanField(default=True, verbose_name="Опубликован")
+    ai_checked_status = models.CharField(
+        max_length=30,
+        choices=AI_CHOICES,
+        default="ai_checked_false",
+        verbose_name="Статус ИИ",
+    )
 
     def __str__(self):
         return f"Отзыв от {self.client_name}"
